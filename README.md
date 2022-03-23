@@ -12,6 +12,14 @@ Simple command line utility for working with the UW Groups Service. The tool is 
 * libcurl
 * a client-server certificate
 
+## Building
+
+During the build process, set the environment variable "GROUPS_API" to the service you wish to use. For example, the eval environment:
+
+```
+export GROUPS_API="https://eval.groups.uw.edu/group_sws/v3"
+```
+
 ## Examples
 
 ### Adding a user to a group

@@ -4,7 +4,7 @@ use regex::Regex;
 use serde::Deserialize;
 use std::error::Error;
 
-const GROUPS_API: &str = "https://eval.groups.uw.edu/group_sws/v3/";
+const GROUPS_API: &'static str = env!("GROUPS_API");
 
 #[derive(Parser)]
 #[clap(name = "groupstool")]
@@ -98,7 +98,7 @@ fn groups_by_member(auth_cert: &str, member_uid: &str) -> Result<(), Box<dyn Err
 
     handle.ssl_cert(auth_cert)?;
     handle.get(true)?;
-    handle.url(&(GROUPS_API.to_owned() + "search?member=" + member_uid))?;
+    handle.url(&(GROUPS_API.to_owned() + "/search?member=" + member_uid))?;
     {
         let mut transfer = handle.transfer();
         transfer.write_function(|new_data| {
@@ -133,7 +133,7 @@ fn list_members(auth_cert: &str, group_id: &str) -> Result<(), Box<dyn Error>> {
 
     handle.ssl_cert(auth_cert)?;
     handle.get(true)?;
-    handle.url(&(GROUPS_API.to_owned() + "group/" + group_id + "/member"))?;
+    handle.url(&(GROUPS_API.to_owned() + "/group/" + group_id + "/member"))?;
     {
         let mut transfer = handle.transfer();
         transfer.write_function(|new_data| {
@@ -157,7 +157,7 @@ fn add_member(auth_cert: &str, group_id: &str, member_uid: &str) -> Result<(), B
 
     handle.ssl_cert(auth_cert)?;
     handle.put(true)?;
-    handle.url(&(GROUPS_API.to_owned() + "group/" + group_id + "/member/" + member_uid))?;
+    handle.url(&(GROUPS_API.to_owned() + "/group/" + group_id + "/member/" + member_uid))?;
 
     handle.perform()?;
     println!(
@@ -175,7 +175,7 @@ fn remove_member(auth_cert: &str, group_id: &str, member_uid: &str) -> Result<()
 
     handle.ssl_cert(auth_cert)?;
     handle.custom_request("DELETE")?;
-    handle.url(&(GROUPS_API.to_owned() + "group/" + group_id + "/member/" + member_uid))?;
+    handle.url(&(GROUPS_API.to_owned() + "/group/" + group_id + "/member/" + member_uid))?;
 
     handle.perform()?;
     println!(
