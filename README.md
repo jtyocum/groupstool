@@ -56,11 +56,11 @@ for grp in u_group1 u_group2 u_group3; do groupstool remove-member /path/to/my/c
 Simply printing the user's group memberships:
 
 ```
-groupstool groups-by-member /path/to/my/cert u_my_group someuser
+groupstool groups-by-member /path/to/my/cert someuser
 ```
 
 Removing a user from a scoped set of group memberships:
 
 ```
-for grp in $(groupstool groups-by-member /path/to/my/cert u_my_group someuser | grep u_group_stem); do groupstool remove-member /path/to/my/cert ${grp} someuser; done
+for grp in $(groupstool groups-by-member /path/to/my/cert someuser | grep u_group_stem); do groupstool remove-member /path/to/my/cert ${grp} someuser; done
 ```
