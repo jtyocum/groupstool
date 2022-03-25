@@ -9,7 +9,7 @@ Simple command line utility for working with the UW Groups Service. The tool is 
 
 ## Requirements
 
-* libcurl
+* libcurl (if not found, one will be statically linked in)
 * a client-server certificate
 
 ## Building
